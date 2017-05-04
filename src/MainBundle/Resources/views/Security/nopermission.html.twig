@@ -1,0 +1,17 @@
+{% extends "MainBundle::base.html.twig" %}
+
+{% block title %}Keine Berechtigung: Zeiterfassung{% endblock %}
+
+{% block body %}
+    <div class="header">
+        <img class="logo" src="{{ asset('img/shmi-logo.png') }}" />
+        <h1>Zeiterfassung</h1>
+        <a class="toplink" href="logout">Logout</a>
+    </div>
+    <div class="content">
+        <div class="alert alert-danger">
+            Sie haben keine Berechtigung diese Seite zu sehen!
+        </div>
+        <a href="{{ data.uri }}">&laquo; zurück zu Mitarbeiterauswahl</a>
+    </div>
+{% endblock %}

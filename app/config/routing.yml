@@ -1,0 +1,22 @@
+index:
+    resource: "@MainBundle/Controller/IndexController.php"
+    prefix:   
+    type:     annotation
+
+timelog:
+    resource: "@MainBundle/Controller/TimeLogController.php"
+    prefix:   
+    type:     annotation
+
+security:
+    resource: "@MainBundle/Controller/SecurityController.php"
+    prefix:   
+    type:     annotation
+    
+register:
+    resource: "@MainBundle/Controller/RegistrationController.php"
+    prefix:   
+    type:     annotation
+    
+logout:
+    path: /logout

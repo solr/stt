@@ -1,0 +1,30 @@
+{% extends "MainBundle::base.html.twig" %}
+
+{% block title %}Zeiterfassung{% endblock %}
+
+{% block body %}
+    <div class="header">
+        <img class="logo" src="{{ asset('img/shmi-logo.png') }}" />
+        <h1>Zeiterfassung</h1>
+        <a class="toplink" href="logout">Logout</a>
+    </div>
+    <div class="content">
+        <h2>Mitarbeiterauswahl</h2>
+        <ul class="employee-list">
+        {% for employee in data.employees %}
+            {% if employee.username == data.user.username %}
+            <li class="selected">
+            {% else %}
+            <li>
+            {% endif %}
+                <a href="log/{{ employee.username }}/{{ data.currentYear }}/{{ data.currentWeek }}">{{ employee.firstname }} {{ employee.lastname }}</a>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
+
+
+
+

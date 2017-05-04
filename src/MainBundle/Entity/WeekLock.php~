@@ -1,0 +1,35 @@
+<?php 
+// src/MainBundle/Entity/WeekLock.php
+namespace MainBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="weeklock")
+ */
+class WeekLock
+{
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $year;
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $week;
+
+    /**
+    * @ORM\Column(type="text")
+    */
+    private $username;
+}

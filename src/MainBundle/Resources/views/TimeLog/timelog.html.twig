@@ -1,0 +1,101 @@
+{% extends "MainBundle::base.html.twig" %}
+
+{% block title %}Zeiterfassung{% endblock %}
+
+{% block body %}
+    <div class="header">
+        <img class="logo" src="{{ asset('img/shmi-logo.png') }}" />
+        <h1>Zeiterfassung</h1>
+        <a class="toplink" href="{{ data.uri }}/logout">Logout</a>
+    </div>
+    <div class="content">
+        <a href="{{ data.uri }}">&laquo; zurück zu Mitarbeiterauswahl</a>
+        <h2>Zeiterfassung für {{ data.employee.firstname }} {{ data.employee.lastname }}</h2>
+        {% if (data.weeklock is defined and data.weeklock == true ) %}
+            <div class="alert alert-warning weeklocked-alert">
+                Die Zeiterfassung für diese Woche ist abgeschlossen.
+            </div>
+        {% endif %}
+        <ul class="yearlist">
+            <li>Jahr: </li>
+            {% for year in data.startYear..data.currentYear %}
+                {% if year == data.year %}
+                <li class="selected">
+                {% else %}
+                <li>           
+                {% endif %}
+                    <a href="{{ data.uri }}/log/{{ data.username }}/{{ year }}/{{ data.week }}">{{ year }}</a>
+            {% endfor %}   
+        </ul>
+        <ul class="weeklist">
+            <li>Woche: </li>
+            {% for week in 1..data.endWeek %}
+            {% if week == data.week %}
+            <li class="selected">
+            {% else %}
+            <li>           
+            {% endif %}
+                <a href="{{ data.uri }}/log/{{ data.username }}/{{ data.year }}/{{ week }}">{{ week }}</a>
+            </li>
+            {% endfor %}   
+        </ul>
+        <h4>{{ data.weekArray.start }} - {{ data.weekArray.end }}</h4>
+        <form method="POST" action="">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th style="width:20%"></th>
+                    <th style="width:10%">Mo</th>
+                    <th style="width:10%">Di</th>
+                    <th style="width:10%">Mi</th>
+                    <th style="width:10%">Do</th>
+                    <th style="width:10%">Fr</th>
+                    <th style="width:25%" class="align-left">Kommentar</th>
+                    <th style="width:5%">Sum.</th>
+                </tr>
+                {% set all_hours = 0 %}    
+                {% if data.projects is defined %}
+                    {% for pr in data.projects %}
+                        {% if pr.name %}
+                            {% set project_hours = 0 %}
+                            <tr>
+                                <td class="align-left">{{ pr.name }}</td>
+                                {% for day in 1..5 %}
+                                    <td class="time-input">
+                                        <input name="{{ pr.id }}_{{ day }}" type="text" value="{{pr.times[day]}}" {% if (data.weeklock is defined and data.weeklock == true ) %}disabled="disabled"{% endif %} />
+                                    </td>
+                                    {% set project_hours = project_hours + pr.times[day] %}
+                                {% endfor %}
+                                <td class="comment">
+                                    <textarea name="comment_{{ pr.id }}" style="resize:none; overflow: hidden;" {% if (data.weeklock is defined and data.weeklock == true ) %}disabled="disabled"{% endif %}>{{ data['comments'][pr.id] }}</textarea>
+                                </td>
+                                {% set all_hours = all_hours + project_hours %}
+                                <td>{{ project_hours }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                <tr class="footer">
+                    <td></td>
+                    {% for day in 1..5 %}
+                        <td>{{ data.daytimes[day] }}</td>
+                    {% endfor %}
+                    <td></td>
+                    <td>{{ all_hours }}</td>
+                </tr>
+            </table>
+            {% if (data.weeklock is not defined or data.weeklock != true ) %}
+                <input type="submit" value="Speichern" name="submit" id="submit" />
+                
+                <div class="checkbox checkbox-warning">
+                    <input id="weeklock" name="weeklock" type="checkbox" value="set" />
+                    <label for="weeklock">
+                        Zeiterfassung für diese Woche abschließen
+                    </label>
+                </div>
+                <div class="alert alert-danger weeklock-warning">
+                    Sind Sie sicher, dass Sie die Zeiterfassung abschließen möchten?
+                </div>
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}

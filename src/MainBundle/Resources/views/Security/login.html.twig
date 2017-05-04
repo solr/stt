@@ -1,0 +1,43 @@
+{# app/Resources/views/Security/login.html.twig #}
+{% extends "MainBundle::base.html.twig" %}
+
+{% block title %}Zeiterfassung{% endblock %}
+
+{% block body %}
+    
+    <div class="header">
+        <img class="logo" src="{{ asset('img/shmi-logo.png') }}" />
+        <h1>Zeiterfassung</h1>        
+        <a class="toplink" href="register">Registrieren</a>
+    </div>
+    <div class="content">
+        {% if register is defined  and register == 'success' %}
+        <div class="alert alert-success">
+            Ihre Registrierung war erfolgreich. Sie können sich jetzt einloggen.
+        </div>
+        {% endif %}
+        <h2>Login</h2>
+        {% if error is defined and error.messageKey is defined %}
+            <div class="alert alert-warning">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+        <form action="{{ path('login') }}" method="post">
+            <div class="form-row">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="_username" value="" />
+            </div>
+            <div class="form-row">
+                <label for="password">Passwort</label>
+                <input type="password" id="password" name="_password" />
+            </div>
+            {#
+                If you want to control the URL the user
+                is redirected to on success (more details below)
+                <input type="hidden" name="_target_path" value="/account" />
+            #}
+            <div class="form-row">
+                <button type="submit">Login</button>
+            </div>
+        </form>
+    </div>
+    
+{% endblock %}
