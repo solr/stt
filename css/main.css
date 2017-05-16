@@ -27,11 +27,14 @@ ul {
 }
 .header .toplink {
     float: right;
-    margin: 25px 0 0 0;
+    margin: 25px 2px 0 0;
     border: 0;
     color: #ffffff;
     background: none #d45500;
     padding: 5px 8px;
+}
+.header .toplink span {
+    margin: 0 5px 0 0;
 }
 .content {
     clear: both;
@@ -70,6 +73,14 @@ ul.yearlist li.selected a {
 }
 .content form {
     margin-top: 10px;
+}
+.content form input[type="text"],
+.content form input[type="password"] {
+    border: 1px solid #777;
+    padding: 2px 4px;
+}
+.content form .time-input input[type="text"] {
+    border: 0;
 }
 .form-row {
     margin-bottom: 20px;

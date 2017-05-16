@@ -28,6 +28,7 @@ class TimeLogController extends Controller
         
         $user = $this->get('security.context')->getToken()->getUser();
         $isAdmin = $this->get('security.context')->isGranted('ROLE_ADMIN');
+        $return["isAdmin"] = $isAdmin;
         
         $em = $this->getDoctrine()->getManager();
         $return["username"] = $username;
@@ -201,7 +202,7 @@ class TimeLogController extends Controller
         }
 
         $return['daytimes'] = $dayTimes;
-        #MyDebug::Dump($dayTimes);die;
+        // MyDebug::Dump($return);die;
         return $this->render('MainBundle:TimeLog:timelog.html.twig', array(
             'data' => $return
         ));

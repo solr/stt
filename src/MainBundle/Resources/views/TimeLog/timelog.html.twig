@@ -3,11 +3,7 @@
 {% block title %}Zeiterfassung{% endblock %}
 
 {% block body %}
-    <div class="header">
-        <img class="logo" src="{{ asset('img/shmi-logo.png') }}" />
-        <h1>Zeiterfassung</h1>
-        <a class="toplink" href="{{ data.uri }}/logout">Logout</a>
-    </div>
+    
     <div class="content">
         <a href="{{ data.uri }}">&laquo; zurück zu Mitarbeiterauswahl</a>
         <h2>Zeiterfassung für {{ data.employee.firstname }} {{ data.employee.lastname }}</h2>

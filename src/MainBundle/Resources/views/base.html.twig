@@ -10,7 +10,17 @@
     </head>
     <body>
         <div class="wrap">
-            <div class='container'>
+            <div class='container'>      
+                <div class="header">
+                    <img class="logo" src="{{ asset('img/shmi-logo.png') }}" />
+                    <h1>Zeiterfassung</h1>
+                    
+                    <a class="toplink" href="{{ data.uri }}/logout">Logout</a>
+                    {% if (data.isAdmin is defined and data.isAdmin == true ) %}
+                        <a class="toplink" href="{{ data.uri }}/newuser"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>New User</a>
+                        <a class="toplink" href="{{ data.uri }}/newproject"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>New Project</a>
+                    {% endif %}
+                </div>           
                 {% block body %}{% endblock %}
             </div>
         </div>
