@@ -27,11 +27,31 @@ ul {
 }
 .header .toplink {
     float: right;
+    width: 30px;
+    height: 28px;
     margin: 25px 2px 0 0;
     border: 0;
     color: #ffffff;
     background: none #d45500;
     padding: 5px 8px;
+    overflow: hidden;
+    -webkit-transition: width .3s; /* Safari */
+    transition: width .3s;
+}
+.header .toplink.login:hover {
+    width: 70px
+}
+.header .toplink.register:hover {
+    width: 115px
+}
+.header .toplink.logout:hover {
+    width: 80px
+}
+.header .toplink.newemployee:hover {
+    width: 155px
+}
+.header .toplink.newproject:hover {
+    width: 125px
 }
 .header .toplink span {
     margin: 0 5px 0 0;
@@ -74,10 +94,23 @@ ul.yearlist li.selected a {
 .content form {
     margin-top: 10px;
 }
+.content form div {
+    margin: 0 0 20px 0;
+}
+.content form div label {
+    width: 100px;
+}
 .content form input[type="text"],
 .content form input[type="password"] {
-    border: 1px solid #777;
+    border: 1px solid #aaa;
     padding: 2px 4px;
+    height: 30px;
+}
+.content form input#form_sort {
+    width: 40px;
+}
+.content form input.project_name {
+    width: 540px;
 }
 .content form .time-input input[type="text"] {
     border: 0;

@@ -15,10 +15,18 @@
                     <img class="logo" src="{{ asset('img/shmi-logo.png') }}" />
                     <h1>Zeiterfassung</h1>
                     
-                    <a class="toplink" href="{{ data.uri }}/logout">Logout</a>
-                    {% if (data.isAdmin is defined and data.isAdmin == true ) %}
-                        <a class="toplink" href="{{ data.uri }}/newuser"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>New User</a>
-                        <a class="toplink" href="{{ data.uri }}/newproject"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>New Project</a>
+                    {% if data is defined %}
+                        {% if data.register is defined and data.register == true %}
+                            <a class="toplink login" href="{{ data.uri }}/login"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>Login</a>
+                        {% elseif data.login is defined and data.login == true %}
+                            <a class="toplink register" href="{{ data.uri }}/register"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Registrieren</a>
+                        {% else %}
+                            <a class="toplink logout" href="{{ data.uri }}/logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>Logout</a>
+                        {% endif %}
+                        {% if (data.isAdmin is defined and data.isAdmin == true ) %}
+                            <a class="toplink newemployee" href="{{ data.uri }}/new-employee"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Neuer Angestellter</a>
+                            <a class="toplink newproject" href="{{ data.uri }}/new-project"><span class="glyphicon glyphicon-th" aria-hidden="true"></span>Neues Projekt</a>
+                        {% endif %}
                     {% endif %}
                 </div>           
                 {% block body %}{% endblock %}

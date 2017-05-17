@@ -42,9 +42,15 @@ class RegistrationController extends Controller
             #return $this->redirectToRoute('login');
         }
 
+        $return['uri'] = '/stt';
+        $return['register'] = true;
+
         return $this->render(
             'MainBundle:Security:register.html.twig',
-            array('form' => $form->createView())
+            array(
+                'form' => $form->createView(),
+                'data' => $return
+            )
         );
     }
 }

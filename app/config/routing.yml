@@ -17,6 +17,16 @@ register:
     resource: "@MainBundle/Controller/RegistrationController.php"
     prefix:   
     type:     annotation
-    
+
+new-employee:
+    resource: "@MainBundle/Controller/NewEmployeeController.php"
+    prefix:   
+    type:     annotation
+
+new-project:
+    resource: "@MainBundle/Controller/NewProjectController.php"
+    prefix:   
+    type:     annotation
+        
 logout:
     path: /logout

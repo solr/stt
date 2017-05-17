@@ -1,0 +1,24 @@
+{% extends "MainBundle::base.html.twig" %}
+
+{% block title %}Zeiterfassung{% endblock %}
+
+{% block body %}
+    
+    <div class="content">
+        <a href="{{ data.uri }}">&laquo; zurück zu Mitarbeiterauswahl</a>
+        {{ form_start(form) }}  
+            {{ form_errors(form) }}
+            <div>
+                {{ form_label(form.name) }}
+                {{ form_errors(form.name) }}
+                {{ form_widget(form.name) }}
+            </div>
+            <div>
+                {{ form_label(form.sort) }}
+                {{ form_errors(form.sort) }}
+                {{ form_widget(form.sort) }}
+            </div>
+            {{ form_widget(form.submit) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

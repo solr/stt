@@ -4,12 +4,6 @@
 {% block title %}Zeiterfassung{% endblock %}
 
 {% block body %}
-    
-    <div class="header">
-        <img class="logo" src="{{ asset('img/shmi-logo.png') }}" />
-        <h1>Zeiterfassung</h1>        
-        <a class="toplink" href="register">Registrieren</a>
-    </div>
     <div class="content">
         {% if register is defined  and register == 'success' %}
         <div class="alert alert-success">
