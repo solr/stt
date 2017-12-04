@@ -47,6 +47,11 @@ class TimeLog
      * @ORM\Column(type="float")
      */
     private $timelog;
+	
+	/**
+     * @ORM\Column(type="text")
+     */
+    private $description;
 
     /**
      * Get id
@@ -194,5 +199,28 @@ class TimeLog
     public function getProject()
     {
         return $this->project;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return TimeLog
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

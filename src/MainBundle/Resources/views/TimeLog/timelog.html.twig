@@ -57,9 +57,10 @@
                                 <td class="align-left">{{ pr.name }}</td>
                                 {% for day in 1..5 %}
                                     <td class="time-input">
-                                        <input name="{{ pr.id }}_{{ day }}" type="text" value="{{pr.times[day]}}" {% if (data.weeklock is defined and data.weeklock == true ) %}disabled="disabled"{% endif %} />
-                                    </td>
-                                    {% set project_hours = project_hours + pr.times[day] %}
+                                        <input name="{{ pr[day]['id'] }}_{{ day }}" type="text" value="{{ pr[day]['time'] }}" {% if (data.weeklock is defined and data.weeklock == true ) %}disabled="disabled"{% endif %} />
+										<textarea name "{{ pr[day]['id'] }}_{{ day }}_descr">{{ pr[day]['descr'] }}</textarea>
+									</td>
+                                    {% set project_hours = project_hours + pr[day]['time'] %}
                                 {% endfor %}
                                 <td class="comment">
                                     <textarea name="comment_{{ pr.id }}" style="resize:none; overflow: hidden;" {% if (data.weeklock is defined and data.weeklock == true ) %}disabled="disabled"{% endif %}>{{ data['comments'][pr.id] }}</textarea>

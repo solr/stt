@@ -70,7 +70,8 @@ class TimeLogController extends Controller
 
         $projectsRes = $em->getRepository('MainBundle:Project')->findBy(array(), array('sort' => 'asc', 'name' => 'asc'));
         foreach ($projectsRes as $project) {
-            $return["projects"][$project->getId()] = $project;
+            $return["projects"][$project->getId()]['id'] = $project->getId();
+            $return["projects"][$project->getId()]['name'] = $project->getName();
         }
 
         $timeLogsRepository = $em->getRepository('MainBundle:TimeLog');
@@ -86,12 +87,13 @@ class TimeLogController extends Controller
         /* Daten Speichern vvvvvvvvvvvvvvvv */        
         if (isset($_POST['submit']) && !empty($_POST['submit']) && !$isWeekLocked) {
             
-            foreach ($return["projects"] as $project) {
-                $projectId = $project->getId();
+            foreach ($return["projects"] as $projectId => $projectName) {
+               
                 /* Zeiten Speichern vvvvvvvvvvv*/
                 for ($day = 1; $day <= 5; $day++) {                    
                     if (null != $_POST[$projectId.'_'.$day]) {
                         $newTimeLog = str_replace(',', '.', $_POST[$projectId.'_'.$day]);
+						$description = $_POST[$projectId.'_'.$day.'_descr'];
                         if ($timeLog = $timeLogsRepository->findOneBy(array( 
                                                                     'year' => $year, 
                                                                     'week' => $week, 
@@ -108,9 +110,10 @@ class TimeLogController extends Controller
                             $timeLog->setYear($year);
                             $timeLog->setWeek($week);
                             $timeLog->setDay($day);
-                            $timeLog->setProject($project);
+                            $timeLog->setProject($projectId);
                             $timeLog->setUsername($username);
                             $timeLog->setTimelog($newTimeLog);
+							$timeLog->setDescription($description);
                         }
                         $em->persist($timeLog);
                         $em->flush();
@@ -169,8 +172,7 @@ class TimeLogController extends Controller
         $dayTimes[4] = 0;
         $dayTimes[5] = 0;
         if (!empty($return['projects'])) {
-            foreach ($return["projects"] as $key => $project) {
-                $projectId = $project->getId();
+            foreach ($return["projects"] as $projectId => $projectName) {
                 for ($day = 1; $day <= 5; $day++) {
                     if ($timeLog = $timeLogsRepository->findOneBy(array( 
                                                                 'year' => $year, 
@@ -178,13 +180,17 @@ class TimeLogController extends Controller
                                                                 'project' => $projectId, 
                                                                 'username' => $username,
                                                                 'day' => $day )
-                    )) { 
-                        $return["projects"][$projectId]->times[$day] = $timeLog->getTimelog();
+                    )) {
+						$return["projects"][$projectId][$day]['id'] = $projectId;
+                        $return["projects"][$projectId][$day]['time'] = $timeLog->getTimelog();
+                        $return["projects"][$projectId][$day]['descr'] = $timeLog->getDescription();
                         $dayHours = $timeLog->getTimelog();
                         
                         $dayTimes[$day] = $dayTimes[$day] + $dayHours;              
                     } else {
-                        $return["projects"][$projectId]->times[$day] = '';
+						$return["projects"][$projectId][$day]['id'] = $projectId;
+                        $return["projects"][$projectId][$day]['time'] = '';
+						$return["projects"][$projectId][$day]['descr'] = '';
                     }
                 }
 
@@ -200,7 +206,6 @@ class TimeLogController extends Controller
                 }           
             }
         }
-
         $return['daytimes'] = $dayTimes;
         // MyDebug::Dump($return);die;
         return $this->render('MainBundle:TimeLog:timelog.html.twig', array(
