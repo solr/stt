@@ -17,22 +17,19 @@ class Project
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string", length=60, unique=true, nullable=true)
      */
     private $name;
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     private $sort;
-
     /**
      * One Project has Many TimeLogs.
      * @ORM\OneToMany(targetEntity="TimeLog", mappedBy="project")
      */
     private $timeLogs;
-
     /**
      * One Project has Many Comments.
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="project")

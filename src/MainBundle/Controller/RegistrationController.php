@@ -42,7 +42,7 @@ class RegistrationController extends Controller
             #return $this->redirectToRoute('login');
         }
 
-        $return['uri'] = '/stt';
+        $return['uri'] = '';
         $return['register'] = true;
 
         return $this->render(

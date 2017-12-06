@@ -24,7 +24,7 @@ class TimeLogController extends Controller
      */
     public function indexAction($username, $year, $week)
     {   
-        $return['uri'] = '/stt';
+        $return['uri'] = '';
         
         $user = $this->get('security.context')->getToken()->getUser();
         $isAdmin = $this->get('security.context')->isGranted('ROLE_ADMIN');

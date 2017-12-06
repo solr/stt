@@ -6,7 +6,20 @@
     
     <div class="content">
         <a href="{{ data.uri }}">&laquo; zurück zu Mitarbeiterauswahl</a>
-        {{ form_start(form) }}  
+        {{ form_start(form) }}
+            {% if newProjectAdded is defined  and newProjectAdded == 'success' %}
+                <div class="alert alert-success">
+                    Neues Projekt erstellt.
+                </div>
+            {% endif %}
+            {% if newProjectAdded is defined  and newProjectAdded == 'fail' %}
+                <div class="alert alert-danger">
+                    Fehler!
+                </div>
+                <div class="alert alert-warning">
+                    {{ errorMessage }}
+                </div>
+            {% endif %}
             {{ form_errors(form) }}
             <div>
                 {{ form_label(form.name) }}

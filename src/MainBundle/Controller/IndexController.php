@@ -15,7 +15,7 @@ class IndexController extends Controller
     public function indexAction()
     {
         $return = [];
-        $return['uri'] = '/stt';
+        $return['uri'] = '';
 
         $isAdmin = $this->get('security.context')->isGranted('ROLE_ADMIN');
         $return["isAdmin"] = $isAdmin;

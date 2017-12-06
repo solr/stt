@@ -18,7 +18,7 @@ class NewProjectController extends Controller
     public function indexAction(Request $request)
     {
         $return = [];
-        $return['uri'] = '/stt';
+        $return['uri'] = '/';
 
         $isAdmin = $this->get('security.context')->isGranted('ROLE_ADMIN');
         $return["isAdmin"] = $isAdmin;
@@ -33,11 +33,26 @@ class NewProjectController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($project);
+                $em->flush();
+            } catch (\Doctrine\DBAL\DBALException $e) {
+                return $this->render(
+                    'MainBundle:NewProject:new-project.html.twig', [
+                    'newProjectAdded' => 'fail',
+                    'errorMessage' => $e->getMessage(),
+                    'form' => $form->createView(),
+                    'data' => $return
+                ]);
+            }
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($project);
-            $em->flush();
-
+            return $this->render(
+                'MainBundle:NewProject:new-project.html.twig', [
+                'newProjectAdded' => 'success',
+                'form' => $form->createView(),
+                'data' => $return
+            ]);
         }
         return $this->render('MainBundle:NewProject:new-project.html.twig', array(
             'form' => $form->createView(),
