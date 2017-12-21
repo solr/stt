@@ -13,7 +13,7 @@ security:
         ROLE_ADMIN:       [ROLE_USER]
 
     providers:
-        shmi_db_provider:
+        stt_db_provider:
             entity:
                 class: MainBundle:User
                 property: username
@@ -45,7 +45,7 @@ security:
                 path:   /logout
                 target: /
 
-            provider: shmi_db_provider
+            provider: stt_db_provider
                 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
